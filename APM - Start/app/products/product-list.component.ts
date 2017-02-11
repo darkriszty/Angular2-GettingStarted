@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { IProduct } from "./product";
 
@@ -7,12 +7,12 @@ import { IProduct } from "./product";
     templateUrl: "./app/products/product-list.template.html",
     styleUrls: ['app/products/product-list.component.css']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
     pageTitle: string = "Product List";
     imageWidth: number = 50;
     imageMargin: number = 2;
     imageShown: boolean = false;
-    listFilter: string = "cart";
+    listFilter: string = "";
     products: IProduct[] = [
         {
             "productId": 1,
@@ -38,5 +38,9 @@ export class ProductListComponent {
 
     toogleImage(): void {
         this.imageShown = !this.imageShown;
+    }
+
+    ngOnInit(): void {
+        console.log("Initializing ProductListComponent");
     }
 }
