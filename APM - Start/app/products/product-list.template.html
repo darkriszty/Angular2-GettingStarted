@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">Product List</div>
+    <div class="panel-heading">{{pageTitle}}</div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-2">Filter by name:</div>
@@ -11,10 +11,15 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table" 
+                *ngIf="products && products.length > 0">
                 <thead>
                     <tr>
-                        <th><button class="btn btn-primary">Show Images</button></th>
+                        <th>
+                            <button class="btn btn-primary" (click)="toogleImage()">
+                                {{imageShown ? "Hide image" : "Show Image"}}
+                            </button>
+                        </th>
                         <th>Product</th>
                         <th>Code</th>
                         <th>Available</th>
@@ -23,7 +28,20 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr *ngFor="let product of products">
+                        <td><img 
+                            [src]="product.imageUrl" 
+                            [title]="product.productName"
+                            [style.width.px]="imageWidth"
+                            [style.margin.px]="imageMargin"
+                            *ngIf="imageShown" />
+                        </td>
+                        <td>{{ product.productName }}</td>
+                        <td>{{ product.productCode }}</td>
+                        <td>{{ product.releasetDate }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.startRating }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
