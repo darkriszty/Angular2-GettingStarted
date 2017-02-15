@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs/Observable";
 
 import { IProduct } from "./product";
 import { ProductService} from "./product.service";
@@ -20,13 +21,19 @@ export class ProductListComponent implements OnInit {
     imageShown: boolean = false;
     listFilter: string;
     products: IProduct[] = [];
+    errorMessage: string;
 
     toogleImage(): void {
         this.imageShown = !this.imageShown;
     }
 
     ngOnInit(): void {
-        this.products = this._productService.getProducts();
+        this._productService
+            .getProducts()
+            .subscribe(
+                p => this.products = p, 
+                error => this.errorMessage = <any> error
+            );
     }
 
     onRatingClicked(message: string): void {
